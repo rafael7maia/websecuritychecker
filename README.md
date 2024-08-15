@@ -18,8 +18,8 @@ Web Security Checker é um script Python que verifica a segurança de websites, 
 
 1. Clone o repositório:
    ```
-   git clone https://github.com/seu-usuario/web-security-checker.git
-   cd web-security-checker
+   git clone https://github.com/seu-usuario/websecuritychecker.git
+   cd websecuritychecker
    ```
 
 2. Instale as dependências:
@@ -32,13 +32,13 @@ Web Security Checker é um script Python que verifica a segurança de websites, 
 ### Verificar uma única URL
 
 ```
-python security_checker.py https://exemplo.com
+python websecuritychecker.py https://exemplo.com
 ```
 
 ### Verificar múltiplas URLs de um arquivo
 
 ```
-python security_checker.py -l lista_de_urls.txt
+python websecuritychecker.py -l lista_de_urls.txt
 ```
 
 O arquivo `lista_de_urls.txt` deve conter uma URL por linha.
