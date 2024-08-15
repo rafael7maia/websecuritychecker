@@ -120,9 +120,6 @@ def check_version_headers(headers):
             results.append(f"[OK] {header}: não encontrado")
     return results
 
-# Verificação de Proteção contra Clickjacking
-def check_clickjacking(headers):
-    return "X-Frame-Options" not in headers
 
 # Verificação de Divulgação de IP Interno
 def check_internal_ip_disclosure(html_content):
@@ -337,7 +334,7 @@ def check_security(url):
         if not insecure_cookies and not inconsistent_cookies:
             results["Cookies"].append("[OK] Nenhum problema encontrado com cookies")
 
-        # Verificação de bibliotecas JavaScript vulneráveis
+        # Verificações de bibliotecas JavaScript vulneráveis
         vulnerable_libraries = check_vulnerable_js(response.text)
         if vulnerable_libraries:
             results["Bibliotecas JavaScript Vulneráveis"].extend([f"[Vulnerável] Biblioteca vulnerável encontrada: {lib}" for lib in vulnerable_libraries])
@@ -347,7 +344,6 @@ def check_security(url):
         # Outras verificações
         results["Outras Verificações"].append(f"[{'Vulnerável' if check_viewstate(response.text) else 'OK'}] ViewState: {'Encontrado' if check_viewstate(response.text) else 'Não encontrado'}")
         results["Outras Verificações"].append(f"[{'Vulnerável' if check_error_messages(response.text) else 'OK'}] Mensagens de erro detalhadas: {'Encontradas' if check_error_messages(response.text) else 'Não encontradas'}")
-        results["Outras Verificações"].append(f"[{'Vulnerável' if check_clickjacking(headers) else 'OK'}] Proteção contra Clickjacking: {'Ausente' if check_clickjacking(headers) else 'Presente'}")
         results["Outras Verificações"].append(f"[{'Vulnerável' if check_internal_ip_disclosure(response.text) else 'OK'}] Divulgação de IP interno: {'Encontrada' if check_internal_ip_disclosure(response.text) else 'Não encontrada'}")
         results["Outras Verificações"].append(f"[{'Vulnerável' if check_aspnet_error_disclosure(response.text) else 'OK'}] Divulgação de erro ASP.NET: {'Encontrada' if check_aspnet_error_disclosure(response.text) else 'Não encontrada'}")
         results["Outras Verificações"].append(f"[{'Vulnerável' if check_cgi_injections(url) else 'OK'}] Vulnerabilidade a injeções CGI: {'Presente' if check_cgi_injections(url) else 'Ausente'}")
@@ -387,18 +383,18 @@ def read_urls_from_file(file_path):
         print(f"Erro: O arquivo {file_path} não foi encontrado.")
         return []
 
+# Função principal
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Verificador de segurança de cabeçalhos e TLS')
-    parser.add_argument('url', nargs='?', help='URL a ser verificada')
-    parser.add_argument('-l', '--list', help='Caminho para o arquivo de lista de URLs')
+    parser = argparse.ArgumentParser(description="Verificador de Segurança de Websites")
+    parser.add_argument("url", nargs="?", help="URL do website a ser verificado.")
+    parser.add_argument("-f", "--file", help="Caminho para um arquivo com uma lista de URLs.")
     args = parser.parse_args()
 
-    if args.list:
-        urls = read_urls_from_file(args.list)
+    if args.file:
+        urls = read_urls_from_file(args.file)
         for url in urls:
             check_security(url)
     elif args.url:
         check_security(args.url)
     else:
-        print("Por favor, forneça uma URL ou um arquivo de lista de URLs para verificar.")
-
+        print("Por favor, forneça uma URL ou um arquivo com URLs.")
