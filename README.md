@@ -54,24 +54,44 @@ O script fornece dois tipos de saída:
 ### Exemplo de Saída no Terminal
 
 ```
-Verificando https://exemplo.com
+Resultados para https://www.xyz123.com.br:
 
 Cabeçalhos de Segurança:
-  Strict-Transport-Security: max-age=31536000
-  X-Frame-Options: SAMEORIGIN
-  ...
+  - [Vulnerável] Cache-Control: não encontrado
+  - [Vulnerável] Content Security Policy não encontrado
+  - [Vulnerável] Permissions-Policy: não encontrado
+  - [Vulnerável] Referrer-Policy: não encontrado
+  - [Vulnerável] Strict-Transport-Security: não encontrado
+  - [Vulnerável] X-Content-Type-Options: não encontrado
+  - [Vulnerável] X-Frame-Options: não encontrado
+  - [Vulnerável] X-XSS-Protection: não encontrado
+
+Cabeçalhos de Versão:
+  - [Vulnerável] Server: Apache
+  - [OK] X-AspNet-Version: não encontrado
+  - [OK] X-AspNetMvc-Version: não encontrado
+  - [OK] X-Powered-By: não encontrado
 
 TLS/SSL Verificações:
-  Modo CBC: Não usado
-  Cipher Suite: ECDHE-RSA-AES256-GCM-SHA384
-  Protocolo TLS: TLSv1.3
-  ...
+  - [OK] Cipher CBC: Não usado
+  - [OK] Cipher: TLS_AES_256_GCM_SHA384
+  - [OK] Sweet32 Vulnerável: Não
+  - [OK] Vulnerabilidade BEAST: Não
+
+Cookies:
+  - [OK] Nenhum problema encontrado com cookies
+
+Bibliotecas JavaScript Vulneráveis:
+  - [OK] Nenhuma biblioteca JavaScript vulnerável conhecida encontrada
 
 Outras Verificações:
-  HTTPS: Sim
-  Formulários Inseguros: Não
-
-Relatório gerado: relatorio_seguranca_exemplo.com.xlsx
+  - [Vulnerável] Proteção contra Clickjacking: Ausente
+  - [OK] Divulgação de IP interno: Não encontrada
+  - [OK] Divulgação de erro ASP.NET: Não encontrada
+  - [OK] Divulgação detalhada de erros: Não encontrada
+  - [OK] Mensagens de erro detalhadas: Não encontradas
+  - [OK] ViewState: Não encontrado
+  - [OK] Vulnerabilidade a injeções CGI: Ausente
 ```
 
 ### Estrutura do Relatório Excel
